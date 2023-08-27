@@ -1,0 +1,173 @@
+<div class="px-3 main">
+    <div class="card p-5">
+        <h1 class="">About Info</h1>
+        <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Title:{{headerTitle}}</h5>
+            </div>
+          Image:<img [src]="'http://localhost:8000/About/' + image
+          "
+          alt="Image"
+          class="rounded-circle-5 ms-2 mt-2"
+          width="60px"
+          height="60px" alt="Image">
+          Backgroung Image:<img [src]="'http://localhost:8000/About/' + backgroundImage
+          "
+          alt="Image"
+          class="rounded-circle-5 ms-2 mt-2"
+          width="60px"
+          height="60px" alt="Image">
+            <div class="card-body">
+              <p class="card-text">Description: {{description}}</p>
+              <h4>Button Text:{{buttonText}}</h4>
+              <h4>Button Link: {{buttonLink}}</h4>
+              <h4>Question:{{question}}</h4>
+              <p >Status:<span [ngClass]="{'active-status': isActive === 1, 'inactive-status': isActive === 0}"> {{ status }}</span></p>
+            </div>
+            <div class="card-footer">
+              <div class="btn-group" role="group" aria-label="Button Group">
+                <button type="button" class="btn btn-success">Create</button>
+                <button type="button" (click)="openModal(update)" class="btn btn-info ms-2">Update</button>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #update>
+            <div class="modal-dialog mt-0 p-2" role="document">
+              <div class="modal-dialog" role="document">
+                <form #taskForm="ngForm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Update Project</h5>
+                      <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+                        <span aria-hidden="true" class="close1 text-dark">Close</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row d-flex">
+                        <div class="col-md-6 create">
+                            <label for="headerTitle" class="text-info"><small>Title</small></label>
+                            <div class="input-group mb-3">
+                                <input
+                                type="text"
+                                name="headerTitle"
+                                class="form-control"
+                                [(ngModel)]="aboutUpdate.headerTitle"
+                                aria-label="Default"
+                                placeholder="Title"
+                                required
+                            />
+                            </div>
+                          </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="name" class="text-info"><small>Image</small></label>
+                          <img
+                          [src]="'http://localhost:8000/About/' + image"
+                          alt="Assignee Image"
+                          class="rounded-circle ms-2 mt-2"
+                          width="200"
+                          height="200"
+                        />
+                        </div>
+                      </div>
+                      <div class="row d-flex">
+                        <div class="col-md-6 create">
+                          <label for="name" class="text-info"><small>Background Image</small></label>
+                          <div class="input-group mb-3">
+                            <img
+                            [src]="'http://localhost:8000/About/' + backgroundImage"
+                            alt="Assignee Image"
+                            class="rounded-circle ms-2 mt-2"
+                            width="200"
+                            height="200"
+                          />
+                          </div>
+                        </div>
+                        <div class="col-md-6 create">
+                          <label for="name" class="text-info"><small>Button Text</small></label>
+                          <div class="input-group mb-3">
+                            <input
+                              type="text"
+                              name="Project Name"
+                              [(ngModel)]="aboutUpdate.buttonText"
+                              class="form-control"
+                              aria-label="Default"
+                              placeholder="Project Name"
+                              required
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row d-flex">
+                        <div class="col-md-6 create">
+                          <label for="name" class="text-info"><small>Button Link</small></label>
+                          <div class="input-group mb-3">
+                            <input
+                              type="text"
+                              name="Project Name"
+                              class="form-control"
+                              aria-label="Default"
+                              placeholder="Project Name"
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="name" class="text-info"><small>Status</small></label>
+                          <div class="input-group mb-4">
+                            <select
+                              type="text"
+                              name="Status"
+                              class="form-select"
+                              aria-label="Default"
+                              placeholder="status"
+                              required
+                            >
+                              <option value="selected" disabled selected class="text-primary">Status</option>
+                              <option>Initiate</option>
+                              <option>Pending</option>
+                              <option>Onhold</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="name" class="text-info"><small>Question</small></label>
+                            <div class="input-group mb-3">
+                                <input
+                                  type="text"
+                                  name="Project Name"
+                                  class="form-control"
+                                  aria-label="Default"
+                                  placeholder="Project Name"
+                                  required
+                                />
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row mt-5">
+                        <label for="name" class="text-info"><small>Description</small></label>
+                        <div class="col-md-12 mb-3">
+                          <textarea
+                            id="w3review"
+                            name="w3review"
+                            rows="4"
+                            cols="60"
+                            class="form-control"
+                            placeholder="Description"
+                            required
+                          ></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer text-center align-items-center mb-4">
+                      <button type="submit" class="btn btn-primary" [disabled]="!taskForm.valid">Update</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </ng-template>
+          
+    </div>
+</div>
