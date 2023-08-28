@@ -5,10 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class TokenService {
 
-    constructor() {}
+  constructor() {}
 
   handle(token: any) {
-    // console.log('finally',token)
     this.set(token);
   }
 

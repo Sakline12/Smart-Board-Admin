@@ -4,6 +4,7 @@ import { DataService } from '../service/data.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from '../service/token.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -73,17 +74,17 @@ export class LoginComponent implements OnInit{
     );
   }
   handleError(error: any) {
-    // this.error = error.error;
-    //         Swal.fire(
-    //           'Error',
-    //           'Email or Password doesn not match',
-    //           'error'
-    //         );
+    this.error = error.error;
+            Swal.fire(
+              'Error',
+              'Email or Password doesn not match',
+              'error'
+            );
   }
 
   handleResponse(data: any) {
-    // console.log('after',data);
-    this.Token.handle(data.token);
+    console.log('after',data);
+    this.Token.handle(data?.token);
     this.router.navigateByUrl('/dashboard');
   }
 }

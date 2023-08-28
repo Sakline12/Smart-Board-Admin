@@ -15,9 +15,19 @@ export class DataService {
   login(data: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
     return this.http.post(environment.apiUrl + '/api/login', data, {
+      headers: headers,
+    });
+  }
+
+  //about-update
+  updateAbout(data: any) {
+    const headers = new HttpHeaders({
+      // 'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(environment.apiUrl + '/api/about-update', data, {
       headers: headers,
     });
   }
@@ -32,13 +42,5 @@ export class DataService {
     });
   }
 
-  updateAbout(data: any) {
-    const headers = new HttpHeaders({
-      // 'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    });
-    return this.http.post(environment.apiUrl + '/api/about-update', data, {
-      headers: headers,
-    });
-  }
+  
 }

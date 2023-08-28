@@ -15,7 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {ModalModule} from 'ngx-bootstrap/modal';
 
-
 @NgModule({
   declarations: [
     AppComponent,

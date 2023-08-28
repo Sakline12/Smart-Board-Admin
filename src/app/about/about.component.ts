@@ -9,16 +9,16 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
- aboutUpdate = {
-    headerTitle: null,
+  aboutUpdate = {
+    id:null,
+    header_title: null,
     image: null,
-    backgroundImage: null,
+    background_image: null,
     description: null,
     question: null,
-    buttonText: null,
-    buttonLink: null,
-    isActive: null,
-    status:null
+    button_text: null,
+    button_link: null,
+    is_active: null,
   };
   data: any;
   modalRef: BsModalRef<unknown> | undefined;
@@ -32,6 +32,10 @@ export class AboutComponent implements OnInit {
   question: any;
   isActive: any;
   status: any;
+  id: any;
+  headerTitleID: any;
+  header_title: any;
+ 
   
 
   constructor(
@@ -41,7 +45,6 @@ export class AboutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Load route title and about details on component initialization
     this.route.data.subscribe(data => {
       this.routeTitle = data['title'];
     });
@@ -53,7 +56,6 @@ export class AboutComponent implements OnInit {
   }
 
   loadAboutDetails() {
-    // Fetch the "About" details from the service and populate the aboutUpdate object
     this.dataService.aboutDetails().subscribe((data: any) => {
       this.headerTitle = data.title;
       this.image = data.data.image;
@@ -63,29 +65,50 @@ export class AboutComponent implements OnInit {
       this.description = data.data.description;
       this.question = data.data.question;
       this.isActive = data.data.is_active;
+      this.id=data.data.id;
+      this.header_title = data.data.title.id;
  
       this.status = this.isActive === 1 ? 'Active' : 'Inactive';
 
-      // Populate aboutUpdate object with retrieved data
       this.aboutUpdate = {
-        headerTitle: this.headerTitle,
+        header_title: this.header_title,
         image: this.image,
-        backgroundImage: this.backgroundImage,
-        buttonText: this.buttonText,
-        buttonLink: this.buttonLink,
+        background_image: this.backgroundImage,
+        button_text: this.buttonText,
+        button_link: this.buttonLink,
         description: this.description,
         question: this.question,
-        isActive: this.isActive,
-        status:this.status
+        is_active: this.isActive,
+        id:this.id
       };
     });
   }
 
   onSubmit() {
-    // Send updated "About" data to the service for updating
+    // Check if any fields in aboutUpdate are null or undefined
+    if (this.aboutUpdate.header_title === null || this.aboutUpdate.header_title === undefined) {
+      this.aboutUpdate.header_title = this.header_title;
+    }
+  
+    if (this.aboutUpdate.image === null || this.aboutUpdate.image === undefined) {
+      this.aboutUpdate.image = this.image;
+    }
+  
+    if (this.aboutUpdate.background_image === null || this.aboutUpdate.background_image === undefined) {
+      this.aboutUpdate.background_image = this.backgroundImage;
+    }
+  
+    // Repeat this pattern for other fields...
+  
+    // Now you can proceed to update the data
     this.dataService.updateAbout(this.aboutUpdate).subscribe((data) => {
       this.data = data;
+      console.log(this.data);
       this.modalService.hide();
     });
   }
+  
 }
+  
+
+
