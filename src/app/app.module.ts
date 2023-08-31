@@ -14,6 +14,7 @@ import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { InteractiveComponent } from './interactive/interactive.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     MainContentComponent,
     DashboardComponent,
     AboutComponent,
-    LoginComponent
+    LoginComponent,
+    InteractiveComponent
   ],
   imports: [
     BrowserModule,

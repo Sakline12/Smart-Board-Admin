@@ -1,186 +1,546 @@
 <div class="px-3 main">
-    <div class="card p-5">
-        <h1 class="">About Info</h1>
-        <div class="card">
-            <div class="card-header">
-              <h5 class="card-title">Title:{{headerTitle}}</h5>
+  <div class="row p-3 d-flex justify-content-center">
+    <!-- <h3 class="text-Info title">Product</h3> -->
+    <div class="col-md-8">
+      <div class="card  border-0">
+        <div class="card-header text-center d-flex justify-content-start align-items-center">
+          <h4 class="mx-auto">Panel Section</h4>
+          <div class="px-2">
+            <button class="btn btn-sm btn-primary" (click)="openModal(update)">Update</button>
+          </div>
+          <div>
+            <button class="btn btn-sm btn-success" (click)="openModal1(template1)">Create</button>
+          </div>
+        </div>
+        <div class="card-body ">
+          <div class="text-center">
+            <h6></h6>
+            <!-- <a href="javascript:void(0)" (click)="openImageWindow('http://localhost:8000/panel/' + Panel_image)">
+            <img [src]="'http://localhost:8000/panel/' + Panel_image" alt="" class="ms-2 mt-2" width="200" height="200" />
+          </a> -->
+            <img [src]="'http://localhost:8000/About/' + image" alt="Image" class="img-fluid"
+              style="height: 200px;width: 200px;">
+            <img [src]="'http://localhost:8000/About/' + background_image" alt="Image" class="img-fluid"
+              style="height: 200px;width: 200px;">
+          </div>
+          <h6 class="">Title: {{header_title_name}}</h6>
+          <h6 class="">Button Text: {{button_text}}</h6>
+          <h6 class="">Description: {{description}}</h6>
+          <h5>
+            <h6>Button Link: {{button_link}}</h6>
+          </h5>
+          <p><span class="fw-bold">Description:</span> {{question}}</p>
+          <div>
+            <p>Status:
+              <span [ngClass]="{'active-status': is_active === 1, 'inactive-status': is_active === 0}">
+                {{ status }}</span>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<ng-template #update>
+
+  <div class="modal-dialog mt-0 p-2" role="document">
+
+    <div class="modal-dialog" role="document">
+
+      <form [formGroup]="aboutUpdateForm" (ngSubmit)="onSubmit()">
+
+        <div class="modal-content">
+
+          <div class="modal-header">
+
+            <h5 class="modal-title" id="exampleModalLabel">Update Project</h5>
+
+            <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+
+              <span aria-hidden="true" class="close1 text-dark">Close</span>
+
+            </button>
+
+          </div>
+
+          <div class="modal-body">
+
+            <div class="row d-flex">
+
+              <div class="col-md-6 create">
+
+                <label for="header_title" class="text-info"><small>Title</small></label>
+
+                <div class="input-group mb-3">
+
+                  <input type="text" id="header_title" name="header_title" class="form-control"
+                    formControlName="header_title" placeholder="Title" required />
+
+                </div>
+
+              </div>
+
+              <div class="col-md-6 mb-3" *ngIf="image != null">
+
+                <div class="col-md-6 mb-3">
+
+                  <label class="text-info"><small>Image</small></label>
+
+                  <img [src]="'http://localhost:8000/About/' + aboutUpdateForm.value.image" alt="Assignee Image"
+                    class="rounded-circle ms-2 mt-2" width="80" height="80" />
+
+                  <input name="file" type="file" (change)="onFileChange($event)" class="form-control mt-2" />
+
+                </div>
+
+              </div>
+
             </div>
-          Image:<img [src]="'http://localhost:8000/About/' + image
-          "
-          alt="Image"
-          class="rounded-circle-5 ms-2 mt-2"
-          width="60px"
-          height="60px" alt="Image">
-          Backgroung Image:<img [src]="'http://localhost:8000/About/' + backgroundImage
-          "
-          alt="Image"
-          class="rounded-circle-5 ms-2 mt-2"
-          width="60px"
-          height="60px" alt="Image">
-            <div class="card-body">
-              <p class="card-text">Description: {{description}}</p>
-              <h4>Button Text:{{buttonText}}</h4>
-              <h4>Button Link: {{buttonLink}}</h4>
-              <h4>Question:{{question}}</h4>
-              <p >Status:<span [ngClass]="{'active-status': isActive === 1, 'inactive-status': isActive === 0}"> {{ status }}</span></p>
+
+            <div class="row d-flex" *ngIf="background_image != null">
+
+              <div class="col-md-6 create">
+
+                <label class="text-info"><small>Background Image</small></label>
+
+                <img [src]="'http://localhost:8000/About/' + aboutUpdateForm.value.background_image"
+                  alt="Background Image" class="ms-2 mt-2" width="80" height="80" />
+
+                <input name="file" type="file" (change)="onBackgroundImageChange($event)" class="form-control mt-2" />
+
+              </div>
+
+              <div class="col-md-6 create">
+
+                <label class="text-info"><small>Button Text</small></label>
+
+                <div class="input-group mb-3">
+
+                  <input type="text" id="buttonText1" name="buttonText1" formControlName="button_text"
+                    class="form-control" placeholder="Button Text" required />
+
+                </div>
+
+              </div>
+
             </div>
-            <div class="card-footer">
-              <div class="btn-group" role="group" aria-label="Button Group">
-                <button type="button" class="btn btn-success">Create</button>
-                <button type="button" (click)="openModal(update)" class="btn btn-info ms-2">Update</button>
+
+            <div class="row d-flex">
+
+              <div class="col-md-6 create">
+
+                <label class="text-info"><small>Button Link</small></label>
+
+                <div class="input-group mb-3">
+
+                  <input type="text" id="buttonLink" name="buttonLink" formControlName="button_link"
+                    class="form-control" placeholder="Button Link" required />
+
+                </div>
+
+              </div>
+
+              <div class="col-md-6 mb-3">
+
+                <label class="text-info"><small>Status</small></label>
+
+                <div class="input-group mb-4">
+
+                  <select id="status" name="status" class="form-select" formControlName="is_active" required>
+
+                    <option value="1">Yes</option>
+
+                    <option value="0">No</option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6 mb-3">
+
+                <label class="text-info"><small>Question</small></label>
+
+                <div class="input-group mb-3">
+
+                  <input type="text" id="question" name="question" class="form-control" formControlName="question"
+                    placeholder="Question" required />
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="row mt-5">
+
+              <label class="text-info"><small>Description</small></label>
+
+              <div class="col-md-12 mb-3">
+
+                <textarea id="description" name="description" rows="4" cols="60" class="form-control"
+                  formControlName="description" placeholder="Description" required></textarea>
+
+              </div>
+
+              <div class="input-group mb-3">
+
+                <input type="id" id="id" name="id" formControlName="id" class="form-control" placeholder="id"
+                  required />
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="footer text-center align-items-center mb-4">
+
+            <button type="submit" class="btn btn-primary" [disabled]="!aboutUpdateForm.valid">Update</button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</ng-template>
+
+
+
+
+
+<div class="px-3 main">
+  <div class="row p-3 d-flex justify-content-center">
+    <div class="col-md-8">
+      <h3 class="mt-4 text-center">Team</h3>
+      <button type="button" class="btn btn-success btn-sm text-white btn-sm m-1 p-1" (click)="openModal3(template4)"><i
+          class="fa-solid fa-plus"></i> Create</button>
+      <div class="card-body">
+        <table class="table table-responsive">
+          <thead table-responsive>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Department</th>
+              <th>Designation</th>
+              <th>Status</th>
+              <th>Sequence</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let tl of teamList">
+              <td>{{tl.id}}</td>
+              <td>{{tl.title_id}}</td>
+              <td>{{tl.name}}</td>
+              <td><img [src]="'http://localhost:8000/Our team/' + tl.image" height="30px" width="30px" alt="Image"></td>
+              <td>{{tl.department}}</td>
+              <td>{{tl.designation}}</td>
+              <td>{{ tl.is_active === 1 ? 'Active' : 'Inactive' }}</td>
+              <td>{{tl.sequence}}</td>
+              <td>
+                <!-- <button class="btn btn-primary text-white btn-sm " routerLink="/projectEdit/{{emp.id}}"><i class="fa-solid fa-pen-to-square"></i> Edit</button> -->
+                <button class="btn btn-primary text-white btn-sm" (click)="openModal2(updateTeam)" (click)="edit(tl)"><i
+                    class="fa-solid fa-pen-to-square"></i> Edit</button>
+              </td>
+            </tr>
+            <!-- Add more rows as needed -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #template1>
+  <div class="modal-dialog p-2" role="document">
+    <form [formGroup]="aboutUpdateForm" (ngSubmit)="createAbout()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Create About
+          </h5>
+          <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="close1 text-dark">Close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row d-flex">
+            <div class="col-md-6 mb-3">
+              <select name="title id" class="form-select" id="header_title" formControlName="header_title"
+                placeholder="Select">
+                <option [ngValue]="titleList[10]?.id">
+                  {{ titleList[10]?.name }}
+                </option>
+              </select>
+
+            </div>
+
+            <div class="col-md-6 create">
+              <div class="input-group mb-3">
+                <input type="text" name="Question" class="form-control" aria-label="Default" formControlName="question"
+                  placeholder="Question" required />
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-12 mb-3">
+              <textarea id="w3review" name="Description" rows="4" cols="60" class="form-control"
+                formControlName="description" placeholder="Description" required></textarea>
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <input type="text" name="Button Text" class="form-control" aria-label="Default"
+              formControlName="button_text" placeholder="Button Text" required />
+          </div>
+
+          <div class="row d-flex">
+            <div class="col-md-6 create">
+              <input type="text" name="Button Link" class="form-control supervisor" aria-label="Default"
+                placeholder="Button Link" formControlName="button_link" required />
+            </div>
+
+
+          </div>
+
+          <div class="">
+            <!-- Image
+            <input
+              name="file"
+              type="file"
+              (change)="onImageChange1($event)"
+              class="form-control mt-2"
+              /> -->
+            <input name="file" type="file" (change)="onImageChange1($event)" class="form-control mt-2" />
+          </div>
+
+          <div class="">
+
+            <input name="file" type="file" (change)="onBackgroundImage2($event)" class="form-control mt-2" />
+          </div>
+        </div>
+        <div class="footer text-center align-items-center mb-4">
+          <button type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #updateTeam>
+  <div class="modal-dialog p-2" role="document">
+    <form #teamForm="ngForm" (ngSubmit)="updateTeaml()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Update Team Member
+          </h5>
+          <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="close1 text-dark">Close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- <div class="row d-flex">
+            <div class="col-md-12 mb-3">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  name="id"
+                  class="form-control"
+                  aria-label="Default"
+                  [(ngModel)]="teamedit.id"
+                  placeholder="ID"
+                  required
+                />
+              </div>
+            </div>
+          </div> -->
+          <div class="row d-flex">
+            <div class="col-md-6 mb-3">
+              <div class="input-group mb-3">
+                <input type="text" name="id" class="form-control" aria-label="Default" [(ngModel)]="teamedit.id"
+                  placeholder="ID" required />
+              </div>
+
+
+            </div>
+
+            <div class="col-md-6 create">
+              <div class="input-group mb-3">
+                <input type="text" name="Title Id" class="form-control" aria-label="Default"
+                  [(ngModel)]="teamedit.title_id" placeholder="Title Id" required />
               </div>
             </div>
           </div>
 
-          <ng-template #update>
-            <div class="modal-dialog mt-0 p-2" role="document">
-              <div class="modal-dialog" role="document">
-                <form #taskForm="ngForm" (ngSubmit)="onSubmit()">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Update Project</h5>
-                      <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
-                        <span aria-hidden="true" class="close1 text-dark">Close</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row d-flex">
-                          <div class="col-md-6 create">
-                            <label for="header_title" class="text-info"><small>Title</small></label>
-                            <div class="input-group mb-3">
-                              <input
-                                type="text"
-                                id="header_title"
-                                name="header_title"
-                                class="form-control"
-                                [(ngModel)]="aboutUpdate.header_title"
-                                placeholder="Title"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label class="text-info"><small>Image</small></label>
-                            <img
-                              [src]="'http://localhost:8000/About/' + image"
-                              alt="Assignee Image"
-                              class="rounded-circle ms-2 mt-2"
-                              width="80"
-                              height="80"
-                            />
-                          </div>
-                        </div>
-                        <div class="row d-flex">
-                          <div class="col-md-6 create">
-                            <label class="text-info"><small>Background Image</small></label>
-                            <div class="input-group mb-3">
-                              <img
-                                [src]="'http://localhost:8000/About/' + backgroundImage"
-                                alt="Background Image"
-                                class="ms-2 mt-2"
-                                width="80"
-                                height="80"
-                              />
-                            </div>
-                          </div>
-                          <div class="col-md-6 create">
-                            <label class="text-info"><small>Button Text</small></label>
-                            <div class="input-group mb-3">
-                              <input
-                                type="text"
-                                id="buttonText1"
-                                name="buttonText1"
-                                [(ngModel)]="aboutUpdate.button_text"
-                                class="form-control"
-                                placeholder="Button Text"
-                                required
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row d-flex">
-                          <div class="col-md-6 create">
-                            <label class="text-info"><small>Button Link</small></label>
-                            <div class="input-group mb-3">
-                              <input
-                                type="text"
-                                id="buttonLink"
-                                name="buttonLink"
-                                [(ngModel)]="aboutUpdate.button_link"
-                                class="form-control"
-                                placeholder="Button Link"
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div class="col-md-6 mb-3">
-                            <label class="text-info"><small>Status</small></label>
-                            <div class="input-group mb-4">
-                              <select
-                                id="status"
-                                name="status"
-                                class="form-select"
-                                [(ngModel)]="aboutUpdate.is_active"
-                                required
-                              >
-                                <option value="1">Yes</option>
-                                <option value="0">No</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <label class="text-info"><small>Question</small></label>
-                            <div class="input-group mb-3">
-                              <input
-                                type="text"
-                                id="question"
-                                name="question"
-                                class="form-control"
-                                [(ngModel)]="aboutUpdate.question"
-                                placeholder="Question"
-                                required
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mt-5">
-                          <label class="text-info"><small>Description</small></label>
-                          <div class="col-md-12 mb-3">
-                            <textarea
-                              id="description"
-                              name="description"
-                              rows="4"
-                              cols="60"
-                              class="form-control"
-                              [(ngModel)]="aboutUpdate.description"
-                              placeholder="Description"
-                              required
-                            ></textarea>
-                          </div>
-                          <div class="input-group mb-3">
-                            <input
-                              type="id"
-                              id="id"
-                              name="id"
-                              [(ngModel)]="aboutUpdate.id"
-                              class="form-control"
-                              placeholder="id"
-                              required
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      
-                    <div class="footer text-center align-items-center mb-4">
-                      <button type="submit" class="btn btn-primary" [disabled]="!taskForm.valid">Update</button>
-                    </div>
-                  </div>
-                </form>
+          <div class="row d-flex">
+            <div class="col-md-12 mb-3">
+              <div class="input-group mb-3">
+                <input type="text" name="Name" class="form-control" aria-label="Default" [(ngModel)]="teamedit.name"
+                  placeholder="Name" required />
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row d-flex">
+            <div class="col-md-6 mb-3">
+              <div class="input-group mb-3">
+                <input type="text" name="Department" class="form-control" aria-label="Default"
+                  [(ngModel)]="teamedit.department" placeholder="Department" required />
+              </div>
+
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="input-group mb-3">
+                <input type="text" name="Designation" class="form-control" aria-label="Default"
+                  [(ngModel)]="teamedit.designation" placeholder="Designation" required />
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="row d-flex">
+            <div class="col-md-6 mb-3">
+              <div class="input-group mb-3">
+                <input type="text" name="Sequence" class="form-control" aria-label="Default"
+                  [(ngModel)]="teamedit.sequence" placeholder="Sequence" required />
+              </div>
+
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <div class="input-group mb-4">
+
+                <select id="status" name="status" class="form-select" [(ngModel)]="teamedit.is_active" required>
+
+                  <option value="1">Yes</option>
+
+                  <option value="0">No</option>
+
+                </select>
+
+              </div>
+
+
+            </div>
+          </div>
+
+
+          <div class="row d-flex">
+            <div class="col-md-6">
+
+            </div>
+            <div class="col-md-6">
+              <input name="file" type="file" (change)="onImageChange2($event)" class="form-control mt-2" />
+            </div>
+          </div>
+        </div>
+        <div class="footer text-center align-items-center mb-4">
+          <button type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #template4>
+  <div class="modal-dialog p-2" role="document">
+    <form #teamForm="ngForm" (ngSubmit)="createTeam()">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Create Team Memeber
+          </h5>
+          <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="close1 text-dark">Close</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row d-flex">
+            <div class="col-md-6 mb-3">
+              <select name="title id" class="form-select" id="header_title" [(ngModel)]="teamform.title_id"
+                placeholder="Select">
+                <option [ngValue]="titleList[7]?.id">
+                  {{ titleList[7]?.name }}
+                </option>
+              </select>
+            </div>
+
+
+
+            <div class="col-md-6 create">
+              <div class="input-group mb-3">
+                <input type="text" name="Name" class="form-control" aria-label="Default" [(ngModel)]="teamform.name"
+                  placeholder="Name" required />
               </div>
             </div>
-          </ng-template>
-          
-    </div>
-</div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <input type="text" name="Department" class="form-control" aria-label="Default"
+                [(ngModel)]="teamform.department" placeholder="Department" required />
+            </div>
+            <div class="col-md-6 mb-3">
+              <input type="text" name="Designation" class="form-control" aria-label="Default"
+                [(ngModel)]="teamform.designation" placeholder="Designation" required />
+            </div>
+          </div>
+
+          <div class="row d-flex">
+            <div class="col-md-6 create">
+              <input type="text" name="Sequence" class="form-control supervisor" aria-label="Default"
+                placeholder="Sequence" [(ngModel)]="teamform.sequence" required />
+            </div>
+
+
+          </div>
+
+          <div class="">
+            <input name="file" type="file" (change)="onImageChange3($event)" class="form-control mt-2" />
+          </div>
+        </div>
+        <div class="footer text-center align-items-center mb-4">
+          <button type="submit" class="btn btn-primary" [disabled]="!aboutUpdateForm.valid">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>
