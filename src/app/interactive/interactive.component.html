@@ -136,11 +136,11 @@
   
                 <div class="col-md-6 create">
   
-                  <label for="header_title" class="text-info"><small>Id</small></label>
+                  <!-- <label for="header_title" class="text-info"><small>Id</small></label> -->
   
                   <div class="input-group mb-3">
   
-                    <input type="text" id="header_title" name="id" class="form-control"
+                    <input type="text" id="header_title" name="id" class="form-control d-none"
                       formControlName="id" placeholder="Title" required />
   
                   </div>
@@ -149,11 +149,11 @@
 
                 <div class="col-md-6 create">
   
-                    <label for="header_title" class="text-info"><small>Title Id</small></label>
+                    <!-- <label for="header_title" class="text-info"><small>Title Id</small></label> -->
     
                     <div class="input-group mb-3">
     
-                      <input type="text" id="header_title" name="id" class="form-control"
+                      <input type="text" id="header_title" name="id" class="form-control d-none"
                         formControlName="title_id" placeholder="Title" required />
     
                     </div>
@@ -275,7 +275,7 @@
     <div class="row p-3 d-flex justify-content-center">
       <div class="col-md-8">
         <h3 class="mt-4 text-center">Intertive devices</h3>
-        <button type="button" class="btn btn-success btn-sm text-white btn-sm m-1 p-1" >
+        <button type="button" class="btn btn-success btn-sm text-white btn-sm m-1 p-1" (click)="openModal3(template4)" >
           <i class="fa-solid fa-plus"></i> Create
         </button>
         <div class="card-body">
@@ -283,9 +283,9 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Title</th>
-                  <th>Sub_Title</th>
+                  <th class="d-none">Id</th>
+                  <th class="d-none">Title</th>
+                  <th class="d-none">Sub_Title</th>
                   <th>Image</th>
                   <th>Name</th>
                   <th>Status</th>
@@ -294,15 +294,15 @@
               </thead>
               <tbody>
                 <tr *ngFor="let dl of deviceList">
-                  <td>{{ dl.id }}</td>
-                  <td>{{ dl.title_id }}</td>
-                  <td>{{dl.sub_title_id}}</td>
-                  <td><img [src]="'http://localhost:8000/Device image/' + dl.image_id" height="30px" width="30px" alt="Image"></td>
+                  <td class="d-none">{{ dl.id }}</td>
+                  <td class="d-none">{{ dl.title_id }}</td>
+                  <td class="d-none">{{dl.sub_title_id}}</td>
+                  <td><img [src]="'http://localhost:8000/deviceimage/' + dl.image_id" height="30px" width="30px" alt="Image"></td>
                   <td>{{dl.name}}</td>
 
                   <td>{{ dl.is_active === 1 ? 'Active' : 'Inactive' }}</td>
                   <td>
-                    <button class="btn btn-primary text-white btn-sm" (click)="openModal2(updateDevice);">
+                    <button class="btn btn-primary text-white btn-sm" (click)="openModal2(updateDevice); "(click)="edititems(dl)">
                         <i class="fa-solid fa-pen-to-square"></i> Edit
                       </button>
                   </td>
@@ -318,7 +318,7 @@
 
   <ng-template #updateDevice>
     <div class="modal-dialog p-2" role="document">
-      <form #deviceForm="ngForm" (ngSubmit)="updateDeviceitems()" >
+      <form #deviceItemsForm="ngForm" (ngSubmit)="updateDeviceitems()" >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
@@ -329,26 +329,57 @@
             </button>
           </div>
           <div class="modal-body">
+ 
+            <div class="row d-flex">
+              <div class="input-group mb-3 d-none">
+                <textarea id="id" name="id" rows="4" cols="60" class="form-control"
+                [(ngModel)]="deviceUpdate.id" placeholder="Name" required></textarea>
+            </div>
+            </div>
+
+            <div class="row d-flex d-none">
+              <div class="input-group mb-3">
+                <textarea id="subtitle_id" name="subtitle_id" rows="4" cols="60" class="form-control"
+                [(ngModel)]="deviceUpdate.title_id" placeholder="subtitle_id" required></textarea>
+            </div>
+            </div>
+
+            <div class="row d-flex d-none">
+              <div class="input-group mb-3">
+                <textarea id="sub title" name="sub title" rows="4" cols="60" class="form-control"
+                [(ngModel)]="deviceUpdate.sub_title_id" placeholder="sub title_id" required></textarea>
+            </div>
+            </div>
+
+            <!-- <div class="row d-flex">
+              <div class="input-group mb-3">
+                <textarea id="Image Id" name="Image Id" rows="4" cols="60" class="form-control"
+                [(ngModel)]="deviceUpdate.sub_title_id" placeholder="Image Id" required></textarea>
+            </div>
+            </div> -->
+
             <div class="row d-flex">
               <div class="col-md-6 mb-3">
                 <div class="input-group mb-3">
                     <textarea id="Name" name="Name" rows="4" cols="60" class="form-control"
-                    placeholder="Name" required></textarea>
+                    [(ngModel)]="deviceUpdate.name" placeholder="Name" required></textarea>
                 </div>
               </div>
   
               <div class="col-md-6 create">
-                <div class="input-group mb-3">
-                    <select id="status" name="status" class="form-select" required>
+                <div class="input-group mb-4">
+
+                  <select id="status" name="status" class="form-select" [(ngModel)]="deviceUpdate.is_active" required>
   
-                        <option value="1">Yes</option>
-      
-                        <option value="0">No</option>
-      
-                      </select>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+  
+                  </select>
+  
                 </div>
               </div>
             </div>
+
           </div>
           <div class="footer text-center align-items-center mb-4">
             <button type="submit" class="btn btn-primary">
@@ -358,4 +389,373 @@
         </div>
       </form>
     </div>
+  </ng-template>
+
+  <ng-template #template4>
+    <div class="modal-dialog p-2" role="document">
+      <form #teamForm="ngForm" (ngSubmit)="createDevice()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Create Device List
+            </h5>
+            <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+              <span aria-hidden="true" class="close1 text-dark">Close</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row d-flex">
+              <div class="col-md-6 mb-3">
+                <label for="title_id">Title</label>
+                <select name="title_id" class="form-select" [(ngModel)]="listForm.title_id" id="title_id" required>
+                  <option value="" disabled selected>Select</option>
+                  <option [ngValue]="titleList[12]?.id">{{ titleList[12]?.name }}</option>
+                </select>
+              </div>
+  
+              <div class="col-md-6 create">
+                <label for="subtitle_id">Subtitle</label>
+                <select name="subtitle_id" class="form-select" id="sub_title_id" [(ngModel)]="listForm.subtitle_id" required>
+                  <option value="" disabled selected>Select</option>
+                  <option [ngValue]="subtitleList[1]?.id">{{ subtitleList[1]?.name }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="image_id">Device Image</label>
+                <select name="image_id" class="form-select" id="device_image" [(ngModel)]="listForm.image_id" required>
+                  <option value="" disabled selected>Select</option>
+                  <option [ngValue]="deviceImageList[0]?.id">{{ deviceImageList[0]?.image }}</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="Name">Name</label>
+                <input type="text" name="Name" class="form-control" id="Name" aria-label="Default" [(ngModel)]="listForm.name" placeholder="Name" required />
+              </div>
+            </div>
+  
+            <div class="footer text-center align-items-center mb-4">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <div class="px-3 main">
+    <div class="row p-3 d-flex justify-content-center">
+      <div class="col-md-8">
+        <h3 class="mt-4 text-center">Intertive Specification</h3>
+        <button type="button" class="btn btn-success btn-sm text-white btn-sm m-1 p-1" (click)="openModal4(template5)" >
+          <i class="fa-solid fa-plus"></i> Create
+        </button>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="d-none">Id</th>
+                  <th class="d-none">Header Title</th>
+                  <th>Features</th>
+                  <th>86 inch IFP</th>
+                  <th>75 inch IFP</th>
+                  <th>65 inch IFP</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sl of specificationList">
+                  <td class="d-none">{{ sl.id }}</td>
+                  <td class="d-none">{{ sl.title_id }}</td>
+                  <td class="">{{sl.feature}}</td>
+                  <td class="">{{sl.inch_86_ifp}}</td>
+                  <td class="">{{sl.inch_75_ifp}}</td>
+                  <td class="">{{sl.inch_65_ifp}}</td>
+                  <td class="">{{ sl.is_active === 1 ? 'Active' : 'Inactive' }}</td>
+                  <td>
+                    <button class="btn btn-primary text-white btn-sm" (click)="openModal5(updateSpecification); "(click)="editspecification(sl)">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                      </button>
+                  </td>
+                </tr>
+                <!-- Add more rows as needed -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #template5>
+    <div class="modal-dialog p-2" role="document">
+      <form  #taskForm="ngForm" (ngSubmit)="createSpecification()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Create Specification List
+            </h5>
+            <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+              <span aria-hidden="true" class="close1 text-dark">Close</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row d-flex">
+              <div class="col-md-6 mb-3">
+                <label for="title_id">Title</label>
+                <select name="title_id" class="form-select" [(ngModel)]="specificationForm.title_id" id="title_id" required>
+                  <option value="" disabled selected>Select</option>
+                  <option [ngValue]="titleList[13]?.id">{{ titleList[13]?.name }}</option>
+                </select>
+              </div>
+  
+              <div class="col-md-6 create">
+                <label for="feature">feature</label>
+                <input type="text" name="feature" class="form-control" id="feature" aria-label="Default" [(ngModel)]="specificationForm.feature"  placeholder="Feature" required />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="86_inch_ifp">86 inch IFP</label>
+                <input type="text" name="86_inch_ifp" class="form-control" id="86_inch_ifp" aria-label="Default" [(ngModel)]="specificationForm.inch_86_ifp"  placeholder="86 inch IFP" required />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="75_inch_ifp">75 inch IFP</label>
+                <input type="75_inch_ifp" name="75_inch_ifp" class="form-control" id="75_inch_ifp" aria-label="Default" [(ngModel)]="specificationForm.inch_75_ifp"  placeholder="75 inch IFP" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="65_inch_ifp">65 inch IFP</label>
+                <input type="65_inch_ifp" name="65_inch_ifp" class="form-control" id="65_inch_ifp" aria-label="Default" [(ngModel)]="specificationForm.inch_65_ifp"  placeholder="65 inch IFP" required />
+              </div>
+            </div>
+  
+            <div class="footer text-center align-items-center mb-4">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <ng-template #updateSpecification>
+    <div class="modal-dialog p-2" role="document">
+      <form #specificatioItemsForm="ngForm" (ngSubmit)="updateInteractiveSpecification()" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Update Interactive Specification
+            </h5>
+            <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+              <span aria-hidden="true" class="close1 text-dark">Close</span>
+            </button>
+          </div>
+          <div class="modal-body">
+ 
+            <div class="row d-flex d-none">
+              <div class="col-md-6">
+              <div class="input-group mb-3">
+                <input type="" name="id" id="id" class="form-control"
+                [(ngModel)]="specificationUpdate.id" placeholder="Id" required>
+            </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <input type="text" name="title_id" class="form-control"
+                  [(ngModel)]="specificationUpdate.title_id" placeholder="Title_id" required>
+              </div>
+                </div>
+            </div>
+
+            <div class="row d-flex">
+              <div class="col-md-6">
+              <div class="input-group mb-3">
+                <input type="text" name="feature" class="form-control"
+                [(ngModel)]="specificationUpdate.feature" placeholder="Feature" required>
+            </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <input type="text" name="inch_86_ifp" class="form-control"
+                  [(ngModel)]="specificationUpdate.inch_86_ifp" placeholder="Inch 86 IFP" required>
+              </div>
+                </div>
+            </div>
+
+            <div class="row d-flex">
+              <div class="col-md-6">
+              <div class="input-group mb-3">
+                <input type="text" name="inch_75_ifp" class="form-control"
+                [(ngModel)]="specificationUpdate.inch_75_ifp" placeholder="Inch 75 IFP" required>
+            </div>
+              </div>
+              <div class="col-md-6">
+                <div class="input-group mb-3">
+                  <input type="text" name="inch_65_ifp" class="form-control"
+                  [(ngModel)]="specificationUpdate.inch_65_ifp" placeholder="Inch 65 IFP" required>
+              </div>
+                </div>
+            </div>
+
+            <div class="row d-flex">
+  
+              <div class="col-md-6 create">
+                <div class="input-group mb-4">
+
+                  <select id="status" name="status" class="form-select" [(ngModel)]="specificationUpdate.is_active" required>
+  
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+  
+                  </select>
+  
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="footer text-center align-items-center mb-4">
+            <button type="submit" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <div class="px-3 main">
+    <div class="row p-3 d-flex justify-content-center">
+      <!-- <h3 class="text-Info title">Product</h3> -->
+      <div class="col-md-8">
+        <div class="card  border-0">
+          <div class="card-header text-center d-flex justify-content-start align-items-center">
+            <h4 class="mx-auto">Video Link</h4>
+            <div class="px-2">
+              <button class="btn btn-sm btn-primary" (click)="openModal6(updateVdeo)" >Update</button>
+            </div>
+            <div>
+              <button class="btn btn-sm btn-success" (click)="openModal1(template1)">Create</button>
+            </div>
+          </div>
+          <div class="card-body ">
+            <div class="text-center">
+              <iframe class="embed-responsive-item" [src]="vdo_link"
+              title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;
+              encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
+
+            </div>
+            <h6 class="">Id: {{id}}</h6>
+            <h6 class="">Video Link: {{vdo_link}}</h6>
+            <h6 class="">Status: <span [ngClass]="{'active-status': is_active === 1, 'inactive-status': is_active === 0}">
+              {{ status }}</span></h6>
+            <div>
+              <!-- <p>Status:
+                <span [ngClass]="{'active-status': is_active === 1, 'inactive-status': is_active === 0}">
+                  {{ status }}</span>
+              </p> -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #updateVdeo>
+
+    <div class="modal-dialog mt-0 p-2" role="document">
+  
+      <div class="modal-dialog" role="document">
+  
+        <form [formGroup]="VideoLinkForm" (ngSubmit)="updateVdoLinks()">
+  
+          <div class="modal-content">
+  
+            <div class="modal-header">
+  
+              <h5 class="modal-title" id="exampleModalLabel">Update Interactive Slider</h5>
+  
+              <button type="button" class="close1 bg-white" aria-label="Close" (click)="modalRef?.hide()">
+  
+                <span aria-hidden="true" class="close1 text-dark">Close</span>
+  
+              </button>
+  
+            </div>
+  
+            <div class="modal-body">
+  
+              <div class="row d-flex">
+  
+                <div class="col-md-6 create">
+  
+                  <!-- <label for="header_title" class="text-info"><small>Id</small></label> -->
+  
+                  <textarea id="Link Name" name="Link Name" rows="4" cols="60" class="form-control"
+                  formControlName="link" placeholder="Video Link" required></textarea>
+  
+                </div>
+
+                <div class="col-md-6 create"> 
+                      <label class="text-info"><small>Status</small></label>
+      
+                      <div class="input-group mb-4">
+      
+                        <select id="status" name="status" class="form-select" formControlName="is_active" required>
+      
+                          <option value="1">Yes</option>
+      
+                          <option value="0">No</option>
+      
+                        </select>
+      
+                      </div>
+                  </div>
+  
+
+  
+              </div>
+
+              <div class="row d-flex">
+  
+                <div class="col-md-6 create">
+  
+                  <!-- <label for="header_title" class="text-info"><small>Id</small></label> -->
+  
+                  <div class="input-group mb-3">
+  
+                    <input type="text" id="id" name="id" class="form-control"
+                      formControlName="id" placeholder="Title" required />
+  
+                  </div>
+  
+                </div>
+              </div>
+            </div>
+  
+  
+  
+            <div class="footer text-center align-items-center mb-4">
+  
+              <button type="submit" class="btn btn-primary" >Update</button>
+  
+            </div>
+  
+          </div>
+  
+        </form>
+  
+      </div>
+  
+    </div>
+  
   </ng-template>

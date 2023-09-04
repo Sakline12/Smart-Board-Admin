@@ -55,6 +55,30 @@ export class DataService {
       headers: headers,
     });
   }
+
+  
+  subTitleList() {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+
+    return this.http.get(environment.apiUrl + '/api/sub-title-list', {
+      headers: headers,
+    });
+  }
+
+  
+  deviceImageList() {
+    const headers = new HttpHeaders({
+      // 'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+
+    return this.http.get(environment.apiUrl + '/api/device-image-list', {
+      headers: headers,
+    });
+  }
   
   
 
@@ -156,7 +180,7 @@ export class DataService {
   
   updateDeviceItems(data:any){
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      // 'Content-Type': 'application/json',
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     });
     return this.http.post(environment.apiUrl + '/api/update-device-item', data, {
@@ -164,5 +188,78 @@ export class DataService {
       
     });
   }
+
+  createDevice(data:any){
+    const headers = new HttpHeaders({
+      // 'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(environment.apiUrl + '/api/create-device', data, {
+      headers: headers,
+      
+    });
+  }
+
+  
+  ListSpecification(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+
+    return this.http.get(environment.apiUrl + '/api/info-of-interactive-specification', {
+      headers: headers,
+    });
+  }
+
+  
+  createIteractiveSpecification(data:any){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(environment.apiUrl + '/api/create-interactive-specification', data, {
+      headers: headers,
+      
+    });
+  }
+
+  updateSpecification(data:any){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(environment.apiUrl + '/api/update-interactive-specification', data, {
+      headers: headers,
+      
+    });
+  }
+
+  
+  videoLinkDetails()
+  {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+
+    return this.http.get(environment.apiUrl + '/api/video-link-info', {
+      headers: headers,
+    });;
+    
+  }
+
+  
+  updateVideoLink(data:any){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    });
+    return this.http.post(environment.apiUrl + '/api/update-video-link', data, {
+      headers: headers,
+      
+    });
+  }
+
 
 }
